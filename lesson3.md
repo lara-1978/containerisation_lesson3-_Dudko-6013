@@ -13,6 +13,8 @@
 теперь подключение к БД
 
 docker run --detach --name some-mariadb --env MARIADB_ROOT_PASSWORD=my-secret-pw  mariadb:latest
+docker exec -запустить процесс в рамках контейнера
+sudo docker exec -it bdda9ed57118 mariadb -u root -p      - подключение к БД  11.4.2-MariaDB-ubu2404 mariadb.org
 
 
 2) добавить в контейнер hostname такой же, как hostname системы через переменную
@@ -23,9 +25,14 @@ docker run --detach --name some-mariadb --env MARIADB_ROOT_PASSWORD=my-secret-pw
 
 3) заполнить БД данными через консоль
   
-  docker run --name test-mariadb -e MARIADB_ROOT_PASSWORD=test123 -v /test-db:/var/lib/mysql -d mariadb:10.10.2
-  CREATE DATABASE test;
+MariaDB [(none)]> SHOW DATABASES;
+MariaDB [(none)]> CREATE DATABASE my_DB;
+USE my_DB;
+CREATE TABLE testlora (i INT);
+INSERT INTO testlora (i) VALUES (1), (22), (33), (100);
+SELECT * FROM testlora;
 
+(скриншоты прилогаюся)
 
 
 4) запустить phpmyadmin (в контейнере) и через веб проверить, что все введенные данные доступны
